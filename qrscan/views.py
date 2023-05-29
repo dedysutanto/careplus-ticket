@@ -37,8 +37,8 @@ def qr_scan(request):
             is_found = False
         
         if is_found:
-            uuid.is_used = True
-            uuid.save()
+            ticket.is_used = True
+            ticket.save()
 
             #return render(request, template_to_use, event_context)
             return render(request, template_to_use)
