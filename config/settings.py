@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'landing',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
     'taggit',
     'crispy_forms',
     'qr_code',
-    'landing',
     'tickets',
     'qrscan',
 ]
