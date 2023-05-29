@@ -41,7 +41,8 @@ def qr_scan(request):
             ticket.save()
 
             #return render(request, template_to_use, event_context)
-            return render(request, template_to_use)
+            return render(request, "qr_used.html")
+            #return render(request, template_to_use)
 
         else:
             return render(request, "qr_not_found.html")
