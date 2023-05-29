@@ -13,9 +13,10 @@ def landing(request):
 
 
 def counter(request):
+    ticket_all = Ticket.objects.all().count()
     ticket_count = Tickets.objects.filter(is_used=True).count()
 
-    return render(request, 'counter.html', {'ticket_count': ticket_count})
+    return render(request, 'counter.html', {'ticket_count': ticket_count, 'ticket_all': ticket_all})
 
 
     
