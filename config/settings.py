@@ -133,6 +133,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = str(os.getenv('WAGTAIL_SITE_NAME', 'Ticket System'))
+WAGTAILADMIN_BASE_URL = str(os.getenv('WAGTAILADMIN_BASE_URL', 'https://ticket.careplus.cloud'))
+WAGTAIL_PASSWORD_RESET_ENABLED = False
+CSRF_TRUSTED_ORIGINS =[WAGTAILADMIN_BASE_URL]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -140,3 +143,4 @@ WAGTAIL_SITE_NAME = str(os.getenv('WAGTAIL_SITE_NAME', 'Ticket System'))
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
