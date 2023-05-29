@@ -11,7 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.timezone import now
 from .models import Pin
 from tickets.models import Tickets
-import uuid
+from uuid import UUID
 
 
 def is_valid_uuid(uuid_to_test, version=4):
