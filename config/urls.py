@@ -7,12 +7,14 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from landing.views import landing, counter
 from qrscan.views import qr_scan, pin_entry, scanner
+from tickets import views
 
 
 urlpatterns = [
     path('', landing, name="landing"),
     path('counter/', counter, name="counter"),
-    path('qr_code/', include('qr_code.urls', namespace="qr_code")),
+    #path('qr_code/', include('qr_code.urls', namespace="qr_code")),
+    path('tickets/qr_code/<str:ticket_id>/', views.qr_code),
     path('admin/', admin.site.urls),
     path('login/', include(wagtailadmin_urls)),
     #path('documents/', include(wagtaildocs_urls)),

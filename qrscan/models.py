@@ -6,6 +6,8 @@ class Pin(models.Model):
 
     class Meta:
         db_table = 'pin'
+        verbose_name = 'PIN'
+        verbose_name_plural = 'PIN'
 
     def __str__(self):
         return 'PIN'

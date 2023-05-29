@@ -12,7 +12,7 @@ class TicketsAdmin(ModelAdmin):
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
-    list_display = ('name', 'uuid', 'is_used')
+    list_display = ('name', 'uuid', 'is_used', 'qr_ticket')
 #    list_filter = ('uuid',)
     search_fields = ('uuid', 'name')
 
