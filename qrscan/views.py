@@ -58,8 +58,9 @@ def qr_scan(request):
         force_checkin = request.POST.get('force_checkin', None)
         #print(registrantid)
 
+        is_found = False
+
         if is_valid_uuid(uuid):
-            is_found = False
         
             try:
                 ticket = Tickets.objects.get(uuid=uuid)
