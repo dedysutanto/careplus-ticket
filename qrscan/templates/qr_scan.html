@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load qr_code %}
+{% block content %}
+
+<br />
+<div class="card text-center bg-success text-light">
+    <div class="card-body">
+        <div class="card-title"><h1>Selamat Datang. Terima Kasih atas Kehadirannya.</h1></div>
+    </div>
+</div>
+
+<br />
+<div class="card">
+    <div class="card-body">
+        <div class="card-title"><h1>{{ event_nama }}</h1></div>
+        <h4>{{ event_info }}</h4>
+        <h4>{{ event_lokasi }}</h4>
+        <h4>{{ event_tanggal|date:"l, d F Y, G:i" }}</h4>
+    </div>
+</div>
+<br />        
+<div class="card">
+    <div class="card-body">
+        <div class="card-title"><h1>{{ nama | title }}</h1></div>
+        <h4>{{ email }}</h4>
+        <h4>{{ telepon }}</h4>
+        <h4>{{ wilayah_nama }}</h4>
+        <h4>Jumlah Yang Datang: <strong>{{  jumlah }}</strong> orang</h4>
+        <h4>Nomor Kursi: <strong>{{ seat_no }}</strong></h4>
+        <br />
+        <a href="{% url 'scanner' %}" class="btn btn-lg btn-block btn-primary">Selesai</a>
+    </div>
+</div>
+<br />
+{% endblock content %}
+

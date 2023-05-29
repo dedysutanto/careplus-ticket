@@ -1,0 +1,52 @@
+[
+{
+    "model": "landing.verse",
+    "pk": 1,
+    "fields": {
+        "ayat": "Janganlah kita menjauhkan diri dari pertemuan-pertemuan ibadah kita, seperti dibiasakan oleh beberapa orang, tetapi marilah kita saling menasihati, dan semakin giat melakukannya menjelang hari Tuhan yang mendekat.",
+        "pasal": "Ibrani 10:25",
+        "created_at": "2021-05-22T11:40:41.970Z",
+        "updated_at": "2021-05-22T11:40:41.970Z"
+    }
+},
+{
+    "model": "landing.verse",
+    "pk": 2,
+    "fields": {
+        "ayat": "Setibanya di situ mereka memanggil jemaat berkumpul, lalu mereka menceriterakan segala sesuatu yang Allah lakukan dengan perantaraan mereka, dan bahwa Ia telah membuka pintu bagi bangsa-bangsa lain kepada iman.",
+        "pasal": "Kisah Para Rasul 14:27",
+        "created_at": "2021-05-22T11:40:55.692Z",
+        "updated_at": "2021-05-22T11:40:55.692Z"
+    }
+},
+{
+    "model": "landing.verse",
+    "pk": 3,
+    "fields": {
+        "ayat": "Mereka bertekun dalam pengajaran rasul-rasul dan dalam persekutuan. Dan mereka selalu berkumpul untuk memecahkan roti dan berdoa.",
+        "pasal": "Kisah Para Rasul 2:42",
+        "created_at": "2021-05-22T11:40:59.963Z",
+        "updated_at": "2021-05-22T11:40:59.963Z"
+    }
+},
+{
+    "model": "landing.verse",
+    "pk": 4,
+    "fields": {
+        "ayat": "Karena itu nasihatilah seorang akan yang lain dan saling membangunlah kamu seperti yang memang kamu lakukan.",
+        "pasal": "1 Tesalonika 5:11",
+        "created_at": "2021-05-22T11:41:08.368Z",
+        "updated_at": "2021-05-22T11:41:08.368Z"
+    }
+},
+{
+    "model": "landing.verse",
+    "pk": 5,
+    "fields": {
+        "ayat": "Sebab itu marilah kita mengejar apa yang mendatangkan damai sejahtera dan yang berguna untuk saling membangun.",
+        "pasal": "Roma 14:9",
+        "created_at": "2021-05-22T11:41:22.734Z",
+        "updated_at": "2021-05-22T11:41:22.734Z"
+    }
+}
+]

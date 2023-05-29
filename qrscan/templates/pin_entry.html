@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br />
+<div class="card text-center bg-danger text-light">
+    <div class="card-body">
+        <div class="card-title"><h1>P I N</h1></div>
+        <h3>{{ pin_salah }}</h3>
+    </div>
+</div>
+<br />
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <br />
+            <button type="submit" class="btn btn-primary btn-lg btn-block">OK</button>
+            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href='{% url "landing" %}'">Cancel</button>
+        </form>
+    </div>
+</div>
+<br />
+{% endblock content %}
+

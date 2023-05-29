@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load qr_code %}
+{% block content %}
+
+<br />
+<div class="card text-center bg-warning">
+    <div class="card-body">
+        <div class="card-title"><h1 class="text-light">Ibadah Belum Mulai!</h1></div>
+        <h3>Jam Ibadah <strong>{{ event_tanggal|date:"l, d F Y, G:i" }}</strong>, masih jauh dari waktu sekarang.</h3>
+    </div>
+</div>
+<br />
+<div class="card">
+    <div class="card-body">
+        <div class="card-title"><h1>{{ event_nama }}</h1></div>
+        <h4>{{ event_info }}</h4>
+        <h4>{{ event_lokasi }}</h4>
+        <h4>{{ event_tanggal|date:"l, d F Y, G:i" }}</h4>
+    </div>
+</div>
+<br />        
+<div class="card">
+    <div class="card-body">
+        <div class="card-title"><h1>{{ nama | title }}</h1></div>
+        <h4>{{ email }}</h4>
+        <h4>{{ telepon }}</h4>
+        <h4>{{ wilayah_nama }}</h4>
+        <h4>Jumlah Yang Datang: <strong>{{  jumlah }}</strong> orang</h4>
+        <br />
+        <form action="{% url 'qr_scan' %}" method="post">
+            <input type="hidden" name="id" value="{{ id }}">
+            <input type="hidden" name="force_checkin" value="1">
+            <!--<button type="submit" class="btn btn-warning btn-lg btn-block">Tetap Check In</button>-->
+        </form>
+            <button type="button" class="btn btn-lg btn-default btn-notify bg-success btn-block text-light" onclick="location.href='{% url "scanner" %}'">Tidak Check In</button>
+    </div>
+</div>
+<br />        
+{% endblock content %}
+
