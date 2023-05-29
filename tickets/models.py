@@ -26,7 +26,7 @@ class Tickets(models.Model):
         return self.name
 
     def qr_ticket(self):
-        text = format_html('<a href="../qr_code/' + self.uuid + '/" target="_blank"><img src="../../static/tickets/qr.png"></a>')
+        text = format_html('<a href="../qr_code/' + str(self.uuid) + '/" target="_blank"><img src="../../static/tickets/qr.png"></a>')
         return text
 
     """
