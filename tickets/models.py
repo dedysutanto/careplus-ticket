@@ -101,7 +101,7 @@ class TicketsUsed(models.Model):
         verbose_name_plural = 'Tickets Used'
 
     def __str__(self):
-        return self.ticket
+        return self.ticket.name
 
 
 @receiver(post_save, sender=Tickets)
