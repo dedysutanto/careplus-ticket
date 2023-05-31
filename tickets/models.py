@@ -121,6 +121,7 @@ def create_ticketsused(sender, created, instance, **kwargs):
     for i in range(instance.amount):
         ticketsused = TicketsUsed()
         ticketsused.ticket = instance
+        ticketsused.name = instance.name
         ticketsused.ticket_number = i + 1
         ticketsused.save()
 

@@ -13,7 +13,7 @@ class TicketsUsedAdmin(ModelAdmin):
     exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
     list_display = ('ticket', 'ticket_number', 'is_used', 'time_used', 'uuid', 'qr_ticket')
-    #search_fields = ('ticket')
+    search_fields = ('uuid', 'ticket__name')
 
 
 class TicketsClassAdmin(ModelAdmin):
