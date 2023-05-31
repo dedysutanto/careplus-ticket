@@ -70,7 +70,7 @@ def qr_scan(request):
                 is_found = False
         
         if is_found:
-            print("Ticket found: %s, %s", ticket.name, ticket.uuid)
+            print("Ticket found: {}, {}", ticket.name, ticket.uuid)
             tickets_used = TicketsUsed.objects.filter(ticket=ticket, is_used=False).order_by('ticket_number')
             """
             try:
