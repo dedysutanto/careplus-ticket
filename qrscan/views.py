@@ -70,7 +70,7 @@ def qr_scan(request):
                 is_found = False
         
         if is_found:
-            print("Ticket found: {}, {}", ticket.name, ticket.uuid)
+            print("Ticket found: ", ticket.name, ticket.uuid)
             tickets_used = TicketsUsed.objects.filter(ticket=ticket, is_used=False).order_by('ticket_number')
             """
             try:
@@ -83,7 +83,7 @@ def qr_scan(request):
             """
 
             if tickets_used:
-                print(tickets_used[0])
+                print("Ticket Number: ", tickets_used[0].ticket_number)
                 tickets_used[0].is_used = True
                 tickets_used[0].time_used = timezone.now()
                 tickets_used[0].save()
