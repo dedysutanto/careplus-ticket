@@ -67,6 +67,7 @@ class Tickets(models.Model):
     def qr_ticket(self):
         text = format_html('<a href="../../tickets/qr_code/' + str(self.uuid) + '/" target="_blank"><img src="../../static/tickets/qr.png"></a>')
         return text
+    qr_ticket.short_description = 'QR Ticket'
 
     '''
     def save(self, *args, **kwargs):
@@ -79,6 +80,11 @@ class TicketsUsed(models.Model):
             Tickets,
             on_delete=models.CASCADE,
             )
+
+    uuid = models.UUIDField(
+            _('Ticket ID'),
+            default = uuid.uuid4, 
+            editable=False)
 
     ticket_number = models.IntegerField(
             _('Ticket Number'),
@@ -102,6 +108,11 @@ class TicketsUsed(models.Model):
 
     def __str__(self):
         return self.ticket.name
+
+    def qr_ticket(self):
+        text = format_html('<a href="../../tickets/qr_code/' + str(self.uuid) + '/" target="_blank"><img src="../../static/tickets/qr.png"></a>')
+        return text
+    qr_ticket.short_description = 'QR Ticket'
 
 
 @receiver(post_save, sender=Tickets)
