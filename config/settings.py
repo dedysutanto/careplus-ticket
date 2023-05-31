@@ -138,6 +138,8 @@ WAGTAIL_SITE_NAME = str(os.getenv('WAGTAIL_SITE_NAME', 'Ticket System'))
 WAGTAILADMIN_BASE_URL = str(os.getenv('WAGTAILADMIN_BASE_URL', 'https://ticket.careplus.cloud'))
 WAGTAIL_PASSWORD_RESET_ENABLED = False
 CSRF_TRUSTED_ORIGINS =[WAGTAILADMIN_BASE_URL]
+WAGTAIL_ENABLE_UPDATE_CHECK = False
+WAGTAIL_ENABLE_WHATS_NEW_BANNER = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
