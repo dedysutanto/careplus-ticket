@@ -58,8 +58,8 @@ class Tickets(models.Model):
 
     class Meta:
         db_table = 'tickets'
-        verbose_name = 'Ticket'
-        verbose_name_plural = 'Tickets'
+        verbose_name = 'Ticket Sell'
+        verbose_name_plural = 'Tickets Sell'
 
     def __str__(self):
         return self.name
@@ -103,8 +103,8 @@ class TicketsUsed(models.Model):
 
     class Meta:
         db_table = 'tickets_used'
-        verbose_name = 'Ticket Used'
-        verbose_name_plural = 'Tickets Used'
+        verbose_name = 'Ticket'
+        verbose_name_plural = 'Tickets'
 
     def __str__(self):
         return self.ticket.name
