@@ -70,18 +70,28 @@ def qr_scan(request):
                 is_found = False
         
         if is_found:
-            tickets_used = TicketsUsed.objects.filter(ticket=ticket, is_used=False).order_by('ticket_number')
+            print("Ticket found: %s, %s", ticket.name, ticket.uuid)
+            #tickets_used = TicketsUsed.objects.filter(ticket=ticket, is_used=False).order_by('ticket_number')
+            try:
+                tickets_used = TicketsUsed.objects.get(ticket=ticket, is_used=False).order_by('ticket_number').first()
+                tickets_used.is_used = True
+                tickets_used.time_used = timezone.now()
+                tickets_used.save()
+            except ObjectDoesNotExist:
+                pass
+            """
             if tickets_used:
                 tickets_used[0].is_used = True
                 tickets_used[0].time_used = timezone.now()
                 tickets_used[0].save()
-                """
+            """
+            """
                 for ticket_used in tickets_used:
                     ticket_used.is_used = True
                     ticket_used.time_used = timezone.now()
                     ticket_used.save()
                     break
-                """
+            """
 
             #return render(request, template_to_use, event_context)
             return render(request, "qr_ok.html")
