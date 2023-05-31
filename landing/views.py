@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Verse
 from random import choice
-from tickets.models import Tickets
+from tickets.models import Tickets, TicketsUsed
 
 
 def landing(request):
@@ -13,8 +13,8 @@ def landing(request):
 
 
 def counter(request):
-    ticket_all = Tickets.objects.all().count()
-    ticket_count = Tickets.objects.filter(is_used=True).count()
+    ticket_all = TicketsUsed.objects.all().count()
+    ticket_count = TicketsUsed.objects.filter(is_used=True).count()
 
     return render(request, 'counter.html', {'ticket_count': ticket_count, 'ticket_all': ticket_all})
 
