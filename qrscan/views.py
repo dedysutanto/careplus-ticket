@@ -76,6 +76,7 @@ def qr_scan(request):
                     ticket_used.is_used = True
                     ticket_used.time_used = timezone.now()
                     ticket_used.save()
+                    break
 
             #return render(request, template_to_use, event_context)
             return render(request, "qr_ok.html")
