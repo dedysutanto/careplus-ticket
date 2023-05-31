@@ -10,8 +10,9 @@ from django.templatetags.static import static
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.timezone import now
 from .models import Pin
-from tickets.models import Tickets
+from tickets.models import Tickets, TicketsUsed
 from uuid import UUID
+from django.utils import timezone
 
 
 def is_valid_uuid(uuid_to_test, version=4):
@@ -69,8 +70,12 @@ def qr_scan(request):
                 is_found = False
         
         if is_found:
-            ticket.is_used = True
-            ticket.save()
+            tickets_used = TicketsUsed.objects.filter(ticket=ticket, is_used=False)
+            if tickets_used:
+                for ticket_used in tickets_used:
+                    ticket_used.is_used = True
+                    ticket_used.time_used = timezone.now()
+                    ticket_used.save()
 
             #return render(request, template_to_use, event_context)
             return render(request, "qr_ok.html")
