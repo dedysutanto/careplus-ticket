@@ -18,6 +18,11 @@ class TicketsClass(models.Model):
             _('Number of Seats'),
             default=0,
             )
+    description = models.TextField(
+            _('Description'),
+            blank=True,
+            default=None
+            )
 
     class Meta:
         db_table = 'tickets_class'
@@ -43,9 +48,10 @@ class TicketsClassChild(models.Model):
             _('Class Name'),
             max_length=20,
             )
-    seats = models.IntegerField(
-            _('Number of Seats'),
-            default=0,
+    description = models.TextField(
+            _('Description'),
+            blank=True,
+            default=None
             )
 
     class Meta:
