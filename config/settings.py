@@ -61,6 +61,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE += ('crum.CurrentRequestUserMiddleware',)
+
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [

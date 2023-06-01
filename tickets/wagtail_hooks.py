@@ -1,5 +1,8 @@
 from wagtail.contrib.modeladmin.options import (
-    ModelAdmin, ModelAdminGroup, modeladmin_register)
+    ModelAdmin, ModelAdminGroup, ObjectList, modeladmin_register)
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel, ObjectList
+from django.utils.translation import gettext_lazy as _
+from crum import get_current_user
 from .models import Tickets, TicketsClass, TicketsUsed, TicketsClassChild
 
 
@@ -52,6 +55,75 @@ class TicketsAdmin(ModelAdmin):
     list_display = ('name', 'ticket_class', 'amount', 'created_at')
 #    list_filter = ('uuid',)
     search_fields = ('uuid', 'name')
+
+    def get_edit_handler(self, instance, request):
+        #return super().get_edit_handler()
+        basic_panels = [
+                MultiFieldPanel(
+                    [
+                        FieldPanel('name'), 
+                        FieldRowPanel([
+                            FieldPanel('phonenumber'),
+                            FieldPanel('email'), 
+                            ]),
+                        FieldRowPanel([
+                            FieldPanel('amount'),
+                            FieldPanel('ticket_class'), 
+                            ]),
+                        FieldPanel('description'),
+                    ],
+                    heading=_('Data Pembeli')
+                    ),
+                MultiFieldPanel(
+                    [
+                        FieldRowPanel([
+                            FieldPanel('faith_promise'), 
+                            FieldPanel('ticket_class_child'),
+                            ])
+                    ],
+                    heading=_('Janji Iman')
+                    ),
+                ]
+        basic_panels_authorize = [
+                MultiFieldPanel(
+                    [
+                        FieldPanel('name'),
+                        FieldRowPanel([
+                            FieldPanel('phonenumber'),
+                            FieldPanel('email'), 
+                            ]),
+                        FieldRowPanel([
+                            FieldPanel('amount'),
+                            FieldPanel('ticket_class'), 
+                            ]),
+                        FieldPanel('description'),
+                    ],
+                    heading=_('Data Pembeli')
+                    ),
+                MultiFieldPanel(
+                    [
+                        FieldRowPanel([
+                            FieldPanel('faith_promise'), 
+                            FieldPanel('ticket_class_child'),
+                            ])
+                    ],
+                    heading=_('Janji Iman')
+                    ),
+                MultiFieldPanel(
+                    [
+                        FieldRowPanel([
+                            FieldPanel('authorization'), 
+                            ])
+                    ],
+                    heading=_('Authorization for creating Tickets')
+                    ),
+                ]
+
+        current_user = get_current_user()
+        custom_panels = basic_panels
+        if current_user.username == 'admin':
+            custom_panels = basic_panels_authorize
+        return ObjectList(custom_panels)
 
 class TicketsGroup(ModelAdminGroup):
     menu_label = 'Tickets'
