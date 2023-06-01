@@ -32,6 +32,31 @@ class TicketsClass(models.Model):
         super(TicketsClass, self).save(*args, **kwargs)
 
 
+class TicketsClassChild(models.Model):
+    parent_class = models.ForeignKey(
+            TicketsClass,
+            on_delete=models.CASCADE,
+            blank=True,
+            default=None
+            )
+    name = models.CharField(
+            _('Class Name'),
+            max_length=20,
+            )
+    seats = models.IntegerField(
+            _('Number of Seats'),
+            default=0,
+            )
+
+    class Meta:
+        db_table = 'tickets_class_child'
+        verbose_name = 'Ticket Class Plus'
+        verbose_name_plural = 'Tickets Class Plus'
+
+    def __str__(self):
+        return self.name
+
+
 class Tickets(models.Model):
     phone_regex = RegexValidator(regex=r'^\0?1?\d{9,16}$', message="Phone number must be entered in the format: '0899999999'. Up to 16 digits allowed.")
     name = models.CharField(
@@ -59,6 +84,13 @@ class Tickets(models.Model):
     ticket_class = models.ForeignKey(
             TicketsClass,
             on_delete=models.RESTRICT,
+            )
+
+    ticket_class_child = models.ForeignKey(
+            TicketsClassChild,
+            on_delete=models.RESTRICT,
+            blank=True,
+            default=None,
             )
 
     created_at = models.DateTimeField(
