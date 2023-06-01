@@ -14,6 +14,11 @@ class TicketsClass(models.Model):
             )
     price = models.IntegerField(blank=True, default=0)
 
+    seats = models.IntegerField(
+            _('Number of Seats'),
+            default=0,
+            )
+
     class Meta:
         db_table = 'tickets_class'
         verbose_name = 'Ticket Class'
@@ -47,6 +52,10 @@ class Tickets(models.Model):
             _('Ticket Amount'),
             default=1
             )
+    faith_promise = models.IntegerField(
+            _('Janji Iman'),
+            default=0,
+            )
     ticket_class = models.ForeignKey(
             TicketsClass,
             on_delete=models.RESTRICT,
@@ -54,6 +63,13 @@ class Tickets(models.Model):
 
     created_at = models.DateTimeField(
             auto_now=True,
+            )
+    authorization = models.BooleanField(
+            _('Authorization'),
+            default=False,
+            )
+    description = models.TextField(
+            blank=True,
             )
 
     class Meta:
