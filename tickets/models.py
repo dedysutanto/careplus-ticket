@@ -134,10 +134,11 @@ class TicketsUsed(models.Model):
 @receiver(post_save, sender=Tickets)
 def create_ticketsused(sender, created, instance, **kwargs):
     TicketsUsed.objects.filter(ticket=instance).delete()
-    for i in range(instance.amount):
-        ticketsused = TicketsUsed()
-        ticketsused.ticket = instance
-        ticketsused.name = instance.name
-        ticketsused.ticket_number = i + 1
-        ticketsused.save()
+    if instance.authorization:
+        for i in range(instance.amount):
+            ticketsused = TicketsUsed()
+            ticketsused.ticket = instance
+            ticketsused.name = instance.name
+            ticketsused.ticket_number = i + 1
+            ticketsused.save()
 
