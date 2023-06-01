@@ -57,7 +57,7 @@ class TicketsGroup(ModelAdminGroup):
     menu_label = 'Tickets'
     menu_icon = 'folder-open-inverse'  # change as required
     menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
-    items = (TicketsClassAdmin, TicketsAdmin, TicketsUsedAdmin)
+    items = (TicketsClassAdmin, TicketsClassChildAdmin, TicketsAdmin, TicketsUsedAdmin)
 
 # Now you just need to register your customised ModelAdmin class with Wagtail
 #modeladmin_register(TicketsUsedAdmin)
