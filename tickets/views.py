@@ -87,6 +87,7 @@ def telegram_tickets(request, ticket_id):
             ticket_filename = str(each_ticket.uuid) + '.png'
             ticket_filename_url = settings.WAGTAILADMIN_BASE_URL + settings.TICKETS_ROOT + ticket_filename
             telegram_image(ticket_filename_url)
+            print('Sending image {}'.format(ticket_filename_url))
 
     except ObjectDoesNotExist:
         pass
