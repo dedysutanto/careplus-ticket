@@ -7,6 +7,7 @@ from .wagtail_hooks import TicketsAdmin
 from django.core.mail import EmailMessage
 from django.conf import settings
 import os
+import requests
 
 
 def qr_code(request, ticket_id):
