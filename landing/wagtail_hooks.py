@@ -2,6 +2,7 @@ from django.contrib.admin.options import format_html
 from wagtail import hooks
 from .summary_panels import TicketsSummaryPanel, TicketsChartPanel
 from django.utils.html import format_html
+from crum import get_current_user
 
 
 @hooks.register('construct_main_menu')
@@ -15,8 +16,10 @@ def hide_item(request, menu_items):
 def add_another_welcome_panel(request, panels):
     panels[:] = [panel for panel in panels if panel.name != "site_summary"]
 
+    current_user = get_current_user()
     panels.append(TicketsSummaryPanel())
-    panels.append(TicketsChartPanel())
+    if current_user.username == 'admin' or current_user.is_superuser:
+        panels.append(TicketsChartPanel())
 
 
 @hooks.register("insert_global_admin_js", order=100)

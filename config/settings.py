@@ -152,3 +152,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 USE_THOUSAND_SEPARATOR = True
+
+# QR
+TICKETS_FOLDER = os.path.join(MEDIA_ROOT, 'tickets')
+TICKETS_ROOT = MEDIA_URL + 'tickets/'
+BASE_TICKET_PNG = 'tickets/static/src/BARCODE-KONSER.png'
+BASE_TICKET_SRC = os.path.join(BASE_DIR, BASE_TICKET_PNG)
+
+#FONT_SRC = 'tickets/static/fonts/GidoleFont/Gidole-Regular.ttf'
+FONT_SRC = 'tickets/static/fonts/BebasNeue-Regular.ttf'
+FONT_SRC_BASE = os.path.join(BASE_DIR, FONT_SRC)
+
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+
+# TELEGRAM
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+TELEGRAM_GROUP_ID = os.getenv('TELEGRAM_GROUP_ID')

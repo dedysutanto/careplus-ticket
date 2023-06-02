@@ -1,9 +1,80 @@
+from django.urls import reverse
 from wagtail.contrib.modeladmin.options import (
-    ModelAdmin, ModelAdminGroup, ObjectList, modeladmin_register)
+    ModelAdmin, ModelAdminGroup, ObjectList, PermissionHelper, modeladmin_register)
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel, ObjectList
+from wagtail.contrib.modeladmin.helpers import ButtonHelper
 from django.utils.translation import gettext_lazy as _
 from crum import get_current_user
 from .models import Tickets, TicketsClass, TicketsUsed, TicketsClassChild
+
+
+class TicketsPermissionHelper(PermissionHelper):
+    def user_can_list(self, user):
+        return True
+
+    def user_can_create(self, user):
+        return True
+
+    def user_can_delete_obj(self, user, obj):
+        if obj.authorization:
+            return False
+        else:
+            return True
+
+    def user_can_edit_obj(self, user, obj):
+        return True
+
+
+class TicketsButtonHelper(ButtonHelper):
+    authorized_classnames = ['button button-small button-success']
+    mail_tickets_classnames = ['button button-small button-primary']
+    telegram_tickets_classnames = ['button button-small button-primary']
+
+    def authorized_button(self, obj):
+        text = _('Authorize')
+        return {
+            'url': reverse('authorize_ticket', kwargs={'ticket_id': str(obj.uuid)}),
+            'label': text,
+            'classname': self.finalise_classname(self.authorized_classnames),
+            'title': text,
+        }
+
+    def mail_tickets_button(self, obj):
+        text = _('Mail Tickets')
+        return {
+            'url': reverse('mail_tickets', kwargs={'ticket_id': str(obj.uuid)}),
+            'label': text,
+            'classname': self.finalise_classname(self.mail_tickets_classnames),
+            'title': text,
+        }
+    def telegram_tickets_button(self, obj):
+        text = _('Telegram Tickets')
+        return {
+            'url': reverse('telegram_tickets', kwargs={'ticket_id': str(obj.uuid)}),
+            'label': text,
+            'classname': self.finalise_classname(self.telegram_tickets_classnames),
+            'title': text,
+        }
+
+    def get_buttons_for_obj(
+        self, obj, exclude=None, classnames_add=None, classnames_exclude=None
+    ):
+        buttons = super().get_buttons_for_obj(
+            obj, exclude, classnames_add, classnames_exclude
+        )
+        current_user = get_current_user()
+        if obj.authorization == False:
+            if current_user.username == 'admin':
+                if 'authorized_button' not in (exclude or []):
+                    buttons.append(self.authorized_button(obj))
+        else:
+            if obj.email is not None:
+                if 'mail_tickets_button' not in (exclude or []):
+                    buttons.append(self.mail_tickets_button(obj))
+            if 'telegram_tickets_button' not in (exclude or []):
+                buttons.append(self.telegram_tickets_button(obj))
+
+        return buttons
 
 
 class TicketsUsedAdmin(ModelAdmin):
@@ -15,7 +86,7 @@ class TicketsUsedAdmin(ModelAdmin):
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
-    list_display = ('ticket', 'uuid', 'is_used', 'qr_ticket')
+    list_display = ('ticket', 'ticket_number', 'is_used', 'qr_ticket')
     search_fields = ('uuid', 'ticket__name')
 
 
@@ -28,7 +99,7 @@ class TicketsClassAdmin(ModelAdmin):
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
-    list_display = ('name', 'price', 'seats')
+    list_display = ('__str__', 'price', 'seats', 'seats_sell', 'seats_available', 'description')
 
 
 class TicketsClassChildAdmin(ModelAdmin):
@@ -40,7 +111,7 @@ class TicketsClassChildAdmin(ModelAdmin):
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
-    list_display = ('name', 'seats')
+    list_display = ('__str__', 'parent_class', 'minimal_promise', 'description')
 
 
 class TicketsAdmin(ModelAdmin):
@@ -52,9 +123,13 @@ class TicketsAdmin(ModelAdmin):
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
-    list_display = ('name', 'ticket_class', 'amount', 'created_at')
-#    list_filter = ('uuid',)
+    list_display = ('name', 'email', 'ticket_class', 'ticket_class_child', 'amount', 'created_at', 'authorization')
+    list_filter = ('authorization',)
     search_fields = ('uuid', 'name')
+    button_helper_class = TicketsButtonHelper
+    permission_helper_class = TicketsPermissionHelper
+    #inspect_view_enabled = True
+    form_view_extra_js = ['tickets/js/tickets.js']
 
     def get_edit_handler(self, instance, request):
         #return super().get_edit_handler()

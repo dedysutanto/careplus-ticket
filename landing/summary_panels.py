@@ -11,10 +11,15 @@ class TicketsSummaryPanel(Component):
     template_name = "landing/site_summary.html"
 
     def __init__(self):
+        self.total_tickets_sell = 0
+        tickets_sells = Tickets.objects.all()
+        for ticket_sell in tickets_sells:
+            self.total_tickets_sell = self.total_tickets_sell + ticket_sell.amount
         self.tickets = TicketsUsed.objects.all().count()
         self.tickets_used = TicketsUsed.objects.filter(is_used=True).count()
         self.tickets_class = TicketsClass.objects.all().count()
         self.total_sell = 0
+        self.total_sell_plus = 0
 
         tclasses = TicketsClass.objects.all()
 
@@ -25,6 +30,7 @@ class TicketsSummaryPanel(Component):
         context['total_tickets_used'] = self.tickets_used
         context['total_tickets_class'] = self.tickets_class
         context['total_sell'] = self.total_sell
+        context['total_tickets_sell'] = self.total_tickets_sell
 
         return context
 
@@ -37,6 +43,7 @@ class TicketsChartPanel(Component):
         self.tickets_classes = {}
         tickets_classes = TicketsClass.objects.all()
         self.total_sell = 0
+        self.total_sell_plus = 0
 
         for tclass in tickets_classes:
             tickets_count = TicketsUsed.objects.filter(ticket__ticket_class=tclass).count()

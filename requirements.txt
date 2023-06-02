@@ -27,6 +27,7 @@ pydantic==1.10.8
 pypng==0.20220715.0
 python-dotenv==1.0.0
 pytz==2023.3
+qrcode==7.4.2
 requests==2.31.0
 segno==1.5.2
 six==1.16.0
