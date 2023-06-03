@@ -1,0 +1,22 @@
+{% load i18n wagtailadmin_tags %}
+    <br />
+    <section class="panel summary nice-padding">
+        <h2 class="visuallyhidden">{% trans "Sell summary" %}</h2>
+        <table style="width: 90%">
+            <tr>
+                <td style="text-align: center;">
+                    <h1>
+                        Total Sell<br />
+                        <span style="font-size: 2.5em;">Rp. {{ total_sell }}</span>
+                    </h1>
+                </td>
+                <td style="text-align: center;">
+                    <h1>
+                        Total Janji Iman<br />
+                        <span style="font-size: 2.5em;">Rp. {{ total_sell_plus }}</span>
+                    </h1>
+                </td>
+            </tr>
+        </table>
+    </section>
+
