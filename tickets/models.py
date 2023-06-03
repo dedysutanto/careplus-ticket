@@ -169,8 +169,7 @@ class Tickets(models.Model):
             default = uuid.uuid4, 
             editable=False)
     phonenumber = models.CharField(
-            _('WA Number'),
-            blank=True,
+            _('Mobile Number'),
             max_length=20,
             validators=[phone_regex],
             )
