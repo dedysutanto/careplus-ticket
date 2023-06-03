@@ -352,7 +352,7 @@ def reduce_seats_sell(sender, created, instance, **kwargs):
             text = 'NEW SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nSeats: ' + str(instance.amount)
         else:
             text = 'NEW SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nClass Plus: ' + str(instance.ticket_class_child) + '\nSeats: ' + str(instance.amount)
-    else:
+    elif instance.authorization == False:
         if instance.ticket_class_child is None:
             text = 'UPDATE SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nSeats: ' + str(instance.amount)
         else:
