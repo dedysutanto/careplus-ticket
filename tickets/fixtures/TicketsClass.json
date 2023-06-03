@@ -1,0 +1,57 @@
+[
+{
+    "model": "tickets.ticketsclass",
+    "pk": 1,
+    "fields": {
+        "name": "DIAMOND",
+        "price": 2000000,
+        "seats": 120,
+        "seats_sell": 6,
+        "description": ""
+    }
+},
+{
+    "model": "tickets.ticketsclass",
+    "pk": 2,
+    "fields": {
+        "name": "PLATINUM",
+        "price": 1000000,
+        "seats": 120,
+        "seats_sell": 3,
+        "description": ""
+    }
+},
+{
+    "model": "tickets.ticketsclass",
+    "pk": 3,
+    "fields": {
+        "name": "GOLD",
+        "price": 750000,
+        "seats": 120,
+        "seats_sell": 2,
+        "description": ""
+    }
+},
+{
+    "model": "tickets.ticketsclass",
+    "pk": 4,
+    "fields": {
+        "name": "SILVER",
+        "price": 500000,
+        "seats": 120,
+        "seats_sell": 2,
+        "description": ""
+    }
+},
+{
+    "model": "tickets.ticketsclass",
+    "pk": 5,
+    "fields": {
+        "name": "BRONZE",
+        "price": 250000,
+        "seats": 160,
+        "seats_sell": 0,
+        "description": ""
+    }
+}
+]

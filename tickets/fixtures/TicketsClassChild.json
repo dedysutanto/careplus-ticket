@@ -1,0 +1,22 @@
+[
+{
+    "model": "tickets.ticketsclasschild",
+    "pk": 1,
+    "fields": {
+        "parent_class": 1,
+        "name": "PLUS 50",
+        "minimal_promise": 50000000,
+        "description": ""
+    }
+},
+{
+    "model": "tickets.ticketsclasschild",
+    "pk": 2,
+    "fields": {
+        "parent_class": 1,
+        "name": "PLUS 100",
+        "minimal_promise": 100000000,
+        "description": ""
+    }
+}
+]
