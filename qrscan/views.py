@@ -74,7 +74,7 @@ def qr_scan(request):
                 print("Ticket Found: ", ticket.ticket.name, ticket.uuid)
                 ticket.is_used = True
                 ticket.time_used = timezone.now()
-                ticket.save()
+                #ticket.save()
                 return render(request, "qr_ok.html")
 
             else:
