@@ -7,10 +7,14 @@
 <div class="card text-center bg-danger text-light">
     <div class="card-body">
         <div class="card-title"><h1 class="text-light">Maaf, QR Code Sudah Terpakai!</h1></div>
+        <h3>Baik-baiklah kepada petugas agar diijinkan masuk</h3>
+        <!--
         <h3>QR Code (ONE) sudah terpakai pada {{ qr_used_at|date:"l, d F Y, G:i" }}
+        -->
     </div>
 </div>
 <br />
+<!--
 <div class="card">
     <div class="card-body">
         <div class="card-title"><h1>{{ event_nama }}</h1></div>
@@ -20,8 +24,10 @@
     </div>
 </div>
 <br />        
+-->
 <div class="card">
     <div class="card-body">
+        <!--
         <div class="card-title"><h1>{{ nama | title }}</h1></div>
         <h4>{{ email }}</h4>
         <h4>{{ telepon }}</h4>
@@ -29,6 +35,7 @@
         <h4>Jumlah Yang Datang: <strong>{{  jumlah }}</strong> orang</h4>
         <h4>Nomor Kursi: <strong>{{ seat_no }}</strong></h4>
         <br />
+        -->
         <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="location.href='{% url "scanner" %}'">Kembali Ke Scanner</button>
     </div>
 </div>
