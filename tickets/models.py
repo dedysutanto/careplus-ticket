@@ -13,13 +13,15 @@ from PIL import Image, ImageDraw, ImageFont
 from PIL import ImageDraw
 from django.conf import settings
 from django.core.mail import send_mail
-import requests
+#import requests
 import urllib.parse
+from .utils import telegram_msg
 
-
+'''
 def telegram_msg(message):
     url = f"https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage?chat_id={settings.TELEGRAM_GROUP_ID}&text={message}"
     print(requests.get(url).json()) # this sends the message
+'''
 
 
 def generate_qr(uuid):
@@ -330,12 +332,14 @@ def create_ticketsused(sender, created, instance, **kwargs):
             ticketsused.save()
             create_ticket(ticketsused)
 
+    '''
         if instance.ticket_class_child is None:
             text = 'TICKET AUTHORIZED!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nSeats: ' + str(instance.amount)
         else:
             text = 'TICKET AUTHORIZED!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nClass Plus: ' + str(instance.ticket_class_child) + '\nSeats: ' + str(instance.amount)
         msg = urllib.parse.quote(text)
         telegram_msg(msg)
+    '''
 
 @receiver(post_save, sender=Tickets)
 def reduce_seats_sell(sender, created, instance, **kwargs):

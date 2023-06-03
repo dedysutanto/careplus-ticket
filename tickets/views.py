@@ -7,7 +7,9 @@ from .wagtail_hooks import TicketsAdmin
 from django.core.mail import EmailMessage
 from django.conf import settings
 import os
-import requests
+#import requests
+import urllib.parse
+from .utils import telegram_msg, telegram_image
 
 
 def qr_code(request, ticket_id):
@@ -29,6 +31,15 @@ def authorize_ticket(request, ticket_id):
         ticket.authorization = True
         ticket.is_cleaned = True
         ticket.save()
+
+        if ticket.ticket_class_child is None:
+            text = 'TICKET AUTHORIZED!\nName: ' + str(ticket.name) + '\nClass: ' + str(ticket.ticket_class) + '\nSeats: ' + str(ticket.amount)
+        else:
+            text = 'TICKET AUTHORIZED!\nName: ' + str(ticket.name) + '\nClass: ' + str(ticket.ticket_class) + '\nClass Plus: ' + str(ticket.ticket_class_child) + '\nSeats: ' + str(ticket.amount)
+
+        msg = urllib.parse.quote(text)
+        telegram_msg(msg)
+
     except ObjectDoesNotExist:
         pass
 
@@ -65,7 +76,7 @@ def mail_tickets(request, ticket_id):
 
     return redirect(url_helper.index_url)
 
-
+'''
 def telegram_image(image):
     apiToken = settings.TELEGRAM_TOKEN
     chatID = settings.TELEGRAM_GROUP_ID
@@ -76,6 +87,7 @@ def telegram_image(image):
         print(response.text)
     except Exception as e:
         print(e)
+'''
 
 def telegram_tickets(request, ticket_id):
     url_helper = TicketsAdmin().url_helper

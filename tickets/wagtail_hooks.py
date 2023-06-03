@@ -196,7 +196,7 @@ class TicketsAdmin(ModelAdmin):
 
         current_user = get_current_user()
         custom_panels = basic_panels
-        if current_user.username == 'admin':
+        if current_user.username == 'admin' or current_user.is_superuser:
             custom_panels = basic_panels_authorize
         return ObjectList(custom_panels)
 
