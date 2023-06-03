@@ -56,7 +56,7 @@ def generate_ticket(uuid):
     qr_src = generate_qr(uuid)
     ticket_img_base = Image.open(settings.BASE_TICKET_SRC)
     qr_img_base = Image.open(qr_src)
-    ticket_img_base.paste(qr_img_base,(253, 370))
+    ticket_img_base.paste(qr_img_base,(237, 347))
     ticket_filename = uuid + '.png'
     ticket_filename_base = os.path.join(settings.TICKETS_FOLDER, ticket_filename)
     ticket_img_base.save(ticket_filename_base)
@@ -80,8 +80,8 @@ def create_ticket(ticket):
         text1 = ticket.ticket.name
         text2 = ticket.ticket.ticket_class.__str__() + ' - ' + str(ticket.ticket_number) + '/' + str(ticket.ticket.amount)
 
-    draw.text((285, 360), text1, font=font, fill=(0, 0, 0))
-    draw.text((285, 870), text2, font=font, fill=(0, 0, 0))
+    draw.text((270, 337), text1, font=font, fill=(0, 0, 0))
+    draw.text((270, 847), text2, font=font, fill=(0, 0, 0))
     img.save(ticket_filename)
 
 
@@ -349,19 +349,23 @@ def reduce_seats_sell(sender, created, instance, **kwargs):
     tickets_class.save()
     print('receiver->reduce_seats_sell {} {}'.format(tickets_class, tickets_class.seats_sell))
 
+    is_telegram = False
     if created:
         if instance.ticket_class_child is None:
             text = 'NEW SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nSeats: ' + str(instance.amount)
         else:
             text = 'NEW SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nClass Plus: ' + str(instance.ticket_class_child) + '\nSeats: ' + str(instance.amount)
+        is_telegram = True
     elif instance.authorization == False:
         if instance.ticket_class_child is None:
             text = 'UPDATE SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nSeats: ' + str(instance.amount)
         else:
             text = 'UPDATE SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nClass Plus: ' + str(instance.ticket_class_child) + '\nSeats: ' + str(instance.amount)
+        is_telegram = True
 
-    msg = urllib.parse.quote(text)
-    telegram_msg(msg)
+    if is_telegram:
+        msg = urllib.parse.quote(text)
+        telegram_msg(msg)
 
 
 @receiver(post_delete, sender=Tickets)
