@@ -81,7 +81,7 @@ def qr_scan(request):
             else:
                 timedelta = timezone.now().timestamp() - ticket.time_used_timestamp
                 print("Timedelta: ", timedelta)
-                if timedelta > 30:
+                if timedelta > 10:
                     print("Ticket Used: ", ticket.ticket.name, ticket.uuid)
                     return render(request, "qr_used.html")
                 else:
