@@ -11,32 +11,62 @@ class TicketsSummaryPanel(Component):
     template_name = "landing/site_summary.html"
 
     def __init__(self):
-        self.total_tickets_sell = 0
+        self.tickets_sell = 0
+        self.tickets_authorized = 0
+
         tickets_sells = Tickets.objects.all()
         for ticket_sell in tickets_sells:
-            self.total_tickets_sell = self.total_tickets_sell + ticket_sell.amount
-        self.tickets = TicketsUsed.objects.all().count()
+            self.tickets_sell = self.tickets_sell + ticket_sell.amount
+
+        tickets_sells = Tickets.objects.filter(authorization=True)
+        for ticket_sell in tickets_sells:
+            self.tickets_authorized = self.tickets_authorized + ticket_sell.amount
         self.tickets_used = TicketsUsed.objects.filter(is_used=True).count()
         self.tickets_class = TicketsClass.objects.all().count()
-        self.total_sell = 0
-        self.total_sell_plus = 0
 
         tclasses = TicketsClass.objects.all()
 
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
-        context['total_tickets'] = self.tickets
+        context['total_tickets_authorized'] = self.tickets_authorized
         context['total_tickets_used'] = self.tickets_used
         context['total_tickets_class'] = self.tickets_class
+        context['total_tickets_sell'] = self.tickets_sell
+
+        return context
+
+class SellSummaryPanel(Component):
+    order = 60
+    template_name = "landing/sell_summary.html"
+
+    def __init__(self):
+        self.total_sell = 0
+        self.total_sell_plus = 0
+        tickets_sells = Tickets.objects.filter(
+                authorization=True,
+                ticket_class_child__isnull=True,
+                )
+        for ticket_sell in tickets_sells:
+            self.total_sell = self.total_sell + ticket_sell.amount * ticket_sell.ticket_class.price
+
+        tickets_sells = Tickets.objects.filter(
+                authorization=True,
+                ticket_class_child__isnull=False,
+                )
+        for ticket_sell in tickets_sells:
+            self.total_sell_plus = self.total_sell_plus + ticket_sell.faith_promise
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
         context['total_sell'] = self.total_sell
-        context['total_tickets_sell'] = self.total_tickets_sell
+        context['total_sell_plus'] = self.total_sell_plus
 
         return context
 
 
 class TicketsChartPanel(Component):
-    order = 60
+    order = 70
     template_name = 'landing/tickets_chart.html'
 
     def __init__(self):

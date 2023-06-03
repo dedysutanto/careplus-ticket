@@ -64,7 +64,7 @@ class TicketsButtonHelper(ButtonHelper):
         )
         current_user = get_current_user()
         if obj.authorization == False:
-            if current_user.username == 'admin':
+            if current_user.username == 'admin' or current_user.is_superuser:
                 if 'authorized_button' not in (exclude or []):
                     buttons.append(self.authorized_button(obj))
         else:
