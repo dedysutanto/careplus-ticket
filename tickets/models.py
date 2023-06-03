@@ -286,6 +286,9 @@ class TicketsUsed(models.Model):
             blank=True,
             editable=False,
             )
+    time_used_timestamp = models.IntegerField(
+            default=0
+            )
     is_used = models.BooleanField(
             _('Is Used'),
             default=False,
