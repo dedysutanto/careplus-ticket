@@ -373,3 +373,10 @@ def add_seats_sell(sender, instance, **kwargs):
     tickets_class.seats_sell = tickets_count
     tickets_class.save()
 
+    if instance.ticket_class_child is None:
+        text = 'DELETE SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nSeats: ' + str(instance.amount)
+    else:
+        text = 'DELETE SELLING!\nName: ' + str(instance.name) + '\nClass: ' + str(instance.ticket_class) + '\nClass Plus: ' + str(instance.ticket_class_child) + '\nSeats: ' + str(instance.amount)
+
+    msg = urllib.parse.quote(text)
+    telegram_msg(msg)
