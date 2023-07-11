@@ -66,7 +66,7 @@ class SellSummaryPanel(Component):
 
 
 class TicketsChartPanel(Component):
-    order = 70
+    order = 80
     template_name = 'landing/tickets_chart.html'
 
     def __init__(self):
@@ -118,7 +118,7 @@ class TicketsChartPanel(Component):
 
 
 class TicketsSellSummary(Component):
-    order = 80
+    order = 70
     template_name = 'landing/tickets_sell_summary.html'
 
     def __init__(self):
