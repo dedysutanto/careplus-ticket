@@ -128,6 +128,7 @@ class TicketsAdmin(ModelAdmin):
     search_fields = ('uuid', 'name')
     button_helper_class = TicketsButtonHelper
     permission_helper_class = TicketsPermissionHelper
+    list_export = ('name', 'email', 'ticket_class', 'ticket_class_child', 'amount', 'created_at', 'authorization')
     #inspect_view_enabled = True
     form_view_extra_js = ['tickets/js/tickets.js']
 

@@ -116,3 +116,32 @@ class TicketsChartPanel(Component):
         #print(context)
         return context
 
+
+class TicketsSellSummary(Component):
+    order = 80
+    template_name = 'landing/tickets_sell_summary.html'
+
+    def __init__(self):
+        self.tickets_summary = []
+        tickets_classes = TicketsClass.objects.all()
+
+        for tclass in tickets_classes:
+            tickets_sell = Tickets.objects.filter(ticket_class=tclass)
+            tickets_sell_count = 0
+            for tsell in tickets_sell:
+                tickets_sell_count = tickets_sell_count + tsell.amount
+
+            tickets_auth_count = TicketsUsed.objects.filter(ticket__ticket_class=tclass).count()
+            tickets_sold = {
+                'class_name': tclass.name,
+                'sold': tickets_sell_count,
+                'auth': tickets_auth_count
+                            }
+            self.tickets_summary.append(tickets_sold)
+
+    def get_context_data(self, parent_context):
+        context = super().get_context_data(parent_context)
+
+        context['tickets_summary'] = self.tickets_summary
+        return context
+

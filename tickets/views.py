@@ -10,6 +10,7 @@ import os
 #import requests
 import urllib.parse
 from .utils import telegram_msg, telegram_image
+from .forms import OrderForm
 
 
 def qr_code(request, ticket_id):
@@ -106,3 +107,32 @@ def telegram_tickets(request, ticket_id):
         pass
 
     return redirect(url_helper.index_url)
+
+
+def order_request(request):
+    if request.method == 'POST':
+        
+        form = OrderForm(request.POST)
+
+        if form.is_valid():
+            
+            nama = form.cleaned_data['nama']
+            email = form.cleaned_data['email']
+            phonenumber = form.cleaned_data['phonenumber']
+            amount = form.cleaned_data['amount']
+            ticket_class = request.POST.get('event')
+            wilayahid = request.POST.get('wilayah')
+            
+            context = {
+                'nama': nama,
+                'email': email,
+                'phonenumber': phonenumber,
+                'amount': amount,
+                'ticket_class': ticket_class,
+            }
+            
+            return confirmation_request(request, context)
+    else:
+        form = OrderForm()
+
+    return render(request, "tickets/order_form.html", {"form": form})

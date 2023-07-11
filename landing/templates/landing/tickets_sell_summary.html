@@ -1,0 +1,36 @@
+{% load i18n wagtailadmin_tags %}
+    <br />
+    <hr />
+    <br />
+    <section class="panel summary nice-padding">
+        <h2 class="visuallyhidden">{% trans "Sell summary" %}</h2>
+        <table style="width: 90%">
+            <thead>
+                <tr>
+                    <th style="text-align: left">
+                        <span style="font-size: 2.5em;">Class</span>
+                    </th>
+                    <th>
+                        <span style="font-size: 2.5em;">Sold</span>
+                    </th>
+                    <th>
+                        <span style="font-size: 2.5em;">Authorized</span>
+                    </th>
+                </tr>
+            </thead>
+            {% for tickets in tickets_summary %}
+            <tr>
+                <td style="text-align: left;">
+                        <span style="font-size: 2.0em;">{{ tickets.class_name }}</span>
+                </td>
+                <td style="text-align: center;">
+                        <span style="font-size: 2.0em;">{{ tickets.sold }}</span>
+                </td>
+                <td style="text-align: center;">
+                        <span style="font-size: 2.0em;">{{ tickets.auth }}</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+

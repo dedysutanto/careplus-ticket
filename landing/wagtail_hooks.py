@@ -1,6 +1,6 @@
 from django.contrib.admin.options import format_html
 from wagtail import hooks
-from .summary_panels import TicketsSummaryPanel, TicketsChartPanel, SellSummaryPanel
+from .summary_panels import TicketsSellSummary, TicketsSummaryPanel, TicketsChartPanel, SellSummaryPanel
 from django.utils.html import format_html
 from crum import get_current_user
 
@@ -21,6 +21,7 @@ def add_another_welcome_panel(request, panels):
     if current_user.username == 'admin' or current_user.is_superuser:
         panels.append(SellSummaryPanel())
     panels.append(TicketsChartPanel())
+    panels.append(TicketsSellSummary())
 
 
 @hooks.register("insert_global_admin_js", order=100)

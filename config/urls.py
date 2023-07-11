@@ -21,6 +21,7 @@ urlpatterns = [
     path('tickets/authorize/<str:ticket_id>/', views.authorize_ticket, name='authorize_ticket'),
     path('tickets/mail/<str:ticket_id>/', views.mail_tickets, name='mail_tickets'),
     path('tickets/telegram/<str:ticket_id>/', views.telegram_tickets, name='telegram_tickets'),
+    #path('tickets/order/', views.order_request, name='order_ticket'),
     path('admin/', admin.site.urls),
     path('login/', include(wagtailadmin_urls)),
     #path('documents/', include(wagtaildocs_urls)),

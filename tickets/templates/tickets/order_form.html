@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load tz %}
+
+<br />
+<div class="card text-center bg-success text-light">
+    <div class="card-body">
+        <div class="card-title"><h1>Order Ticket</h1></div>
+    </div>
+</div>
+<br />
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <br />
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Confirm</button>
+            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href='{% url "landing" %}'">Cancel</button>
+        </form>
+    </div>
+</div>
+<br />
+
+<script>
+    let eventId = document.querySelectorAll('[for*="id_event_"]');
+    //console.log(eventId);
+    for (var i = 0; i < eventId.length; i++) {
+        if (eventId[i].className == "form-check-label") {
+            //console.log(i);
+            let eventText = eventId[i].innerText;
+            //console.log(eventText);
+            let eventCap = eventText.split("Kuota: ");
+            //console.log(eventId[i]);
+            //if (eventCap[1] == "0") {
+            //console.log(eventCap);
+            if (parseInt(eventCap[1]) <= 0) {
+                let eventIdText = eventId[i].htmlFor;
+                let checkId = document.getElementById(eventIdText);
+                checkId.disabled = true;
+                console.log(checkId);
+            } 
+        }
+    }
+
+  
+    //console.log(event_id);
+</script>
+{% endblock content %}
+
