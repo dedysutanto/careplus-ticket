@@ -9,15 +9,14 @@
         <!--
         <h3>QR Code (ONE) sudah terpakai pada {{ qr_used_at|date:"l, d F Y, G:i" }}
         -->
-        <h3>Silakan masuk pelan-pelan melalui pintu yang tersedia</h3>
+        <h4>Silakan ikuti petunjuk petugas untuk masuk pelan-pelan melalui pintu yang tersedia</h4>
     </div>
 </div>
 <br />
 <div class="card">
     <div class="card-body">
-        <div class="card-title"><h1>{{ ticket.ticket.name | title }}</h1></div>
-        <h4>{{ ticket.ticket.ticket_class.name }}</h4>
-        <h4>{{ ticket.ticket_number }} / {{ ticket.ticket.amount }}</h4>
+        <div class="card-title"><h1>{{ ticket.ticket.name }}</h1></div>
+        <h1>{{ ticket.ticket.ticket_class.name }} - {{ ticket.ticket_number }}/{{ ticket.ticket.amount }}</h1>
         <br />
         <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="location.href='{% url "scanner" %}'">Kembali Ke Scanner</button>
     </div>
