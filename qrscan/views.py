@@ -2,7 +2,8 @@ from datetime import timedelta
 from ssl import SSL_ERROR_WANT_CONNECT
 from urllib import request
 from django.shortcuts import render, redirect
-from django.conf import settings 
+from django.conf import settings
+from django.template import context 
 from .forms import PinForm
 from django.http import HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
@@ -70,22 +71,27 @@ def qr_scan(request):
                 is_found = False
         
         if is_found:
+            context = {}
             if not ticket.is_used:
+                context = {}
                 ticket.is_used = True
                 ticket.time_used = timezone.now()
                 ticket.time_used_timestamp = timezone.now().timestamp()
                 ticket.save()
                 print("Ticket Found: ", ticket.ticket.name, ticket.uuid, ticket.time_used_timestamp)
-                return render(request, "qr_ok.html")
+                context['ticket'] = ticket
+                return render(request, "qr_ok.html", context)
 
             else:
+                context['ticket'] = ticket
                 timedelta = timezone.now().timestamp() - ticket.time_used_timestamp
                 print("Timedelta: ", timedelta)
-                if timedelta > 10:
+                #if timedelta > 10:
+                if timedelta > 5:
                     print("Ticket Used: ", ticket.ticket.name, ticket.uuid)
                     return render(request, "qr_used.html")
                 else:
-                    return render(request, "qr_ok.html")
+                    return render(request, "qr_ok.html", context)
 
         else:
             return render(request, "qr_not_found.html")

@@ -15,15 +15,10 @@
 <br />
 <div class="card">
     <div class="card-body">
-        <!--
-        <div class="card-title"><h1>{{ nama | title }}</h1></div>
-        <h4>{{ email }}</h4>
-        <h4>{{ telepon }}</h4>
-        <h4>{{ wilayah_nama }}</h4>
-        <h4>Jumlah Yang Datang: <strong>{{  jumlah }}</strong> orang</h4>
-        <h4>Nomor Kursi: <strong>{{ seat_no }}</strong></h4>
+        <div class="card-title"><h1>{{ ticket.ticket.name | title }}</h1></div>
+        <h4>{{ ticket.ticket.ticket_class.name }}</h4>
+        <h4>{{ ticket.ticket_number }} / {{ ticket.ticket.amount }}</h4>
         <br />
-        -->
         <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="location.href='{% url "scanner" %}'">Kembali Ke Scanner</button>
     </div>
 </div>
