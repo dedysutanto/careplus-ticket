@@ -137,7 +137,7 @@ class TicketsSellSummary(Component):
             tickets_sold = {
                 'class_name': tclass.name,
                 'sold': tickets_sell_count,
-                'auth': tickets_auth_count
+                'auth': tickets_auth_count,
                 'used': tickets_used_count
                             }
             self.tickets_summary.append(tickets_sold)
