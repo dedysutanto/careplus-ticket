@@ -16,6 +16,9 @@
                     <th>
                         <span style="font-size: 2.5em;">Authorized</span>
                     </th>
+                    <th>
+                        <span style="font-size: 2.5em;">Used</span>
+                    </th>
                 </tr>
             </thead>
             {% for tickets in tickets_summary %}
@@ -28,6 +31,9 @@
                 </td>
                 <td style="text-align: center;">
                         <span style="font-size: 2.0em;">{{ tickets.auth }}</span>
+                </td>
+                <td style="text-align: center;">
+                        <span style="font-size: 2.0em;">{{ tickets.used }}</span>
                 </td>
             </tr>
             {% endfor %}
