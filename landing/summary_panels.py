@@ -131,7 +131,7 @@ class TicketsSellSummary(Component):
             for tsell in tickets_sell:
                 tickets_sell_count = tickets_sell_count + tsell.amount
 
-            tickets_used_count = TicketsUsed.objects.filter(ticket__ticket_class=tclass, ticket.is_used=True).count()
+            tickets_used_count = TicketsUsed.objects.filter(ticket__ticket_class=tclass, is_used=True).count()
 
             tickets_auth_count = TicketsUsed.objects.filter(ticket__ticket_class=tclass).count()
             tickets_sold = {
